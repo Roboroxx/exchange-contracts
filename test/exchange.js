@@ -18,11 +18,11 @@ contract('Exchange', (accounts) => {
             console.log("acc2.SND=" + (await second.balanceOf(acc2)).toNumber());
         }
 
-        await second.transfer(acc2, 1000);
+        await second.transfer(acc2, 1000, {from: acc1});
         console.log("Balances before exchange:");
         logBalances();
 
-        await first.approve(exchange.address, 500);
+        await first.approve(exchange.address, 500, {from: acc1});
         await exchange.exchange(first.address, 500, second.address, 1000, {from: acc1});
         await second.approve(exchange.address, 1000, {from: acc2});
         await exchange.exchange(second.address, 1000, first.address, 500, {from: acc2});
